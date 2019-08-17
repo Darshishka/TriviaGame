@@ -39,4 +39,10 @@
         //actors names
         //what itteration was Data in
         //what itteration was patrick stewart in
-    //
+    //location of worlds biggest comic convention
+    //lotr
+    //what does larp stand for
+    //what is cosplay
+    //mario
+    //marvel
+        //
