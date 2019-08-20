@@ -2,3 +2,49 @@ body {
     background-image: url(../../assets/images/matrix.gif);
     -webkit-background-size: cover;
 }
+#content {
+    background-color: green;
+    padding: 5%;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 7%;
+    text-align: center;
+    height: 100%;
+}
+#startBtn {
+    font-size: 30px;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 50%;
+    color: green;
+    background-color: black;
+    border: black solid 5px;
+}
+#startBtn:hover {
+    font-weight: bold;
+    padding: 6px;
+}
+#title {
+    font-size: 50px;
+    font-weight: bold;
+    padding: 5%;
+    margin-bottom: 10%;
+}
+#questions {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 5%;
+}
+button {
+    font-size: 25px;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 50%;
+    color: green;
+    background-color: black;
+    border: black solid 5px;
+}
+button:hover {
+    font-weight: bold;
+}
