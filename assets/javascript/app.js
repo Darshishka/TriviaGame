@@ -74,47 +74,68 @@ var answers = [
     ["correct a 2", "test a incc. 4", "test a incc. 5", "test a incc. 6"]
 ]
 var correctAnswer = [2,0];
-var qNum = 0;
+var btnMade = false;
 
 document.onclick = function gameStart() {
     document.getElementById("startBtn").style.display = "none";
 
-    var button1 = document.createElement("button");
-    button1.setAttribute("id","btn1");
-    var button2 = document.createElement("button");
-    button2.setAttribute("id", "btn2");
-    var button3 = document.createElement("button");
-    button3.setAttribute("id", "btn3")
-    var button4 = document.createElement("button");
-    button4.setAttribute("id", "btn4")
 
-    document.getElementById("answers").appendChild(button1);
-    document.getElementById("answers").appendChild(button2);
-    document.getElementById("answers").appendChild(button3);
-    document.getElementById("answers").appendChild(button4);
-    
-    var btnIndex = ["#btn1", "#btn2", "#btn3", "#btn4"]
+    if (btnMade === false) {
+        var button1 = document.createElement("button");
+        button1.setAttribute("id","btn1");
+        var button2 = document.createElement("button");
+        button2.setAttribute("id", "btn2");
+        var button3 = document.createElement("button");
+        button3.setAttribute("id", "btn3")
+        var button4 = document.createElement("button");
+        button4.setAttribute("id", "btn4");
+        document.getElementById("answers").appendChild(button1);
+        document.getElementById("answers").appendChild(button2);
+        document.getElementById("answers").appendChild(button3);
+        document.getElementById("answers").appendChild(button4);        
+        btnMade = true;
+    }
 
-    if (qNum != questions.length) {
+    var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
+    var qNum = 0;
+//
+//issues with score
+//
+    var score = 0;
+//
+//issue with buttons not updating
+//
         document.getElementById("questions").innerHTML = questions[qNum];
         document.getElementById("btn1").innerHTML = answers[qNum][0];
         document.getElementById("btn2").innerHTML = answers[qNum][1];
         document.getElementById("btn3").innerHTML = answers[qNum][2];      
         document.getElementById("btn4").innerHTML = answers[qNum][3];
+
+    if (qNum != questions.length) {
+
 //tells me which button is clicked
 //to test for correct answer
     //if btnIndex.indexOf(btnClicked) === correctAnswers[qNum]
     //then user got correct answer
         $("button").click(function() {
-            var btnClicked = this.id;
-            if (btnIndex.indexOf(btnClicked) === correctAnswer[qNum]) {
-                console.onclick("corect answer was chosen");
-            } else if (btnIndex.indexOf(btnClicked) != correctAnswer[qNum]) {
+            var btnClickedId = this.id;
+            var userAnswer = btnIndex.indexOf(btnClickedId);
+            console.log(userAnswer);
+            
+            console.log(correctAnswer[qNum]);
+            if (userAnswer === correctAnswer[qNum]) {
+                console.log("corect answer was chosen");
+                qNum++;
+//       
+//issue displaying score
+//
+                score++;
+                console.log(score);
+                document.getElementById("score").innerHTML = "Score: " + score;
+            } else {
                 console.log("inccorect answer was chosen");
+                qNum++;
             }
         });
-        qNum++;
     }
-
-    
 }
