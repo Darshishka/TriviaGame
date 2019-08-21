@@ -1,12 +1,4 @@
 //trivia question ideas
-    //pokemon
-        //who are the elite four
-    //legend of zelda
-        //goron
-        //kokiri
-        //name of his sword
-        //original console released on
-        //number of zelda games
     //doctor who
         //first doctor
         //first episode
@@ -40,11 +32,8 @@
     //what is cosplay
     //mario
     //marvel
-        //
+        //when was the first comic published
 
-
-        //use objects?
-        //https://codepen.io/agnosticdev/pen/ZbWjaB?editors=1010#0
 
 //Q: Which is not a region in pokemon?
 //A: ["Shinnoh", "Kanto", "Unova", "Jinto"]
@@ -62,6 +51,22 @@
 //A: ["Gandalf", "Gandhi", "Ganon", "Gandly"]
 //C: ganon 3
 
+//Q: In Legend of Zelda, who are the Kokiri?
+//A: ["A tribe of forest children", "A tribe of rock people", "A tribe of fish people", "A tribe of people consisting only of women"]
+//C: forest children 1
+
+//Q: In Legend of Zelda, what is the name of Link's iconic weapon?
+//A: ["Master blade", "Master dagger", "Master knife", "Master sword"]
+//C: master sword 4
+
+//Q: What platform was Legend of Zelda origially released on?
+//A: ["GameCube", "Nintendo 64", "NES", "Super Nintendo"]
+//C: NES 3
+
+//Q: 
+//A: 
+//C: 
+
 
 
 var questions = [
@@ -76,9 +81,12 @@ var answers = [
 var correctAnswer = [2,0];
 var btnMade = false;
 
+var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
+var qNum = 0;
+var score = 0;
+
 document.onclick = function gameStart() {
     document.getElementById("startBtn").style.display = "none";
-
 
     if (btnMade === false) {
         var button1 = document.createElement("button");
@@ -95,47 +103,47 @@ document.onclick = function gameStart() {
         document.getElementById("answers").appendChild(button4);        
         btnMade = true;
     }
+    gameQuestions();
+}
 
-    var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
-    var qNum = 0;
-//
-//issues with score
-//
-    var score = 0;
-//
-//issue with buttons not updating
-//
-        document.getElementById("questions").innerHTML = questions[qNum];
-        document.getElementById("btn1").innerHTML = answers[qNum][0];
-        document.getElementById("btn2").innerHTML = answers[qNum][1];
-        document.getElementById("btn3").innerHTML = answers[qNum][2];      
-        document.getElementById("btn4").innerHTML = answers[qNum][3];
+function gameQuestions() {
+    document.getElementById("questions").innerHTML = questions[qNum];
+    document.getElementById("btn1").innerHTML = answers[qNum][0];
+    document.getElementById("btn2").innerHTML = answers[qNum][1];
+    document.getElementById("btn3").innerHTML = answers[qNum][2];      
+    document.getElementById("btn4").innerHTML = answers[qNum][3];
 
-    if (qNum != questions.length) {
+    if (qNum < questions.length) {
+//
+//need to figure out how to end
+//
 
-//tells me which button is clicked
-//to test for correct answer
-    //if btnIndex.indexOf(btnClicked) === correctAnswers[qNum]
-    //then user got correct answer
+    //tells me which button is clicked
+    //tests for correct answer
         $("button").click(function() {
             var btnClickedId = this.id;
             var userAnswer = btnIndex.indexOf(btnClickedId);
             console.log(userAnswer);
-            
+                
             console.log(correctAnswer[qNum]);
             if (userAnswer === correctAnswer[qNum]) {
                 console.log("corect answer was chosen");
-                qNum++;
-//       
-//issue displaying score
-//
                 score++;
                 console.log(score);
                 document.getElementById("score").innerHTML = "Score: " + score;
+                nextQuestion();
             } else {
                 console.log("inccorect answer was chosen");
-                qNum++;
+                nextQuestion();
             }
         });
     }
+}
+
+function nextQuestion() {
+    qNum++;
+    gameQuestions();
+}
+function endGame() {
+
 }
