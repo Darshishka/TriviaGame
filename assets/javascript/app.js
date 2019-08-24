@@ -118,34 +118,30 @@ var losses = 0;
 //         }
 //     }, int);
 // }
+var timeLeft = 60;
+var nextQuestionTimer;
+var timerIterator;
 
-//change to jquery?
-//$("#startBtn").click(function)
+function countdownTimer() {
+    document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
+    nextQuestionTimer = setTimeout(function() {
+        losses++;
+        console.log("60 sec timer");
+        nextQuestion();
+    }, 60000);
+    timeLeft = 60;
+    timerIterator = setInterval(function() {
+        timeLeft -= 1;
+        console.log("1 sec timer");
+        document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
+    }, 1000);
+    console.log()
+}
+
+
 document.onclick = function gameStart() {
     document.getElementById("startBtn").style.display = "none";
     document.getElementById("score").innerHTML = "Score: " + wins;
-
-    //starts timer on game start
- //   timerStart();
-
-    // function userCorrect() {
-    //     //setTimeout() to display a next question after win page
-    //         //document.getElementById("content").innerHTML
-    //     console.log("corect answer was chosen");
-    //     wins++;
-    //     qNum++;
-    //     console.log(wins);
-    //     document.getElementById("score").innerHTML = "Score: " + wins;
-    // }
-
-    // function userIncorrect() {
-    //     //setTimeout() to display a next question afer lose page
-    //         //document.getElementById("content").innerHTML
-    //     console.log("inccorect answer was chosen");
-    //     losses++;
-    //     qNum++;
-    // }
-
 
     if (!btnMade) {
         var button1 = document.createElement("button");
@@ -161,6 +157,26 @@ document.onclick = function gameStart() {
         document.getElementById("answers").appendChild(button3);
         document.getElementById("answers").appendChild(button4);        
         btnMade = true;
+        $("button").click(function() {
+            var btnClickedId = this.id;
+            var userAnswer = btnIndex.indexOf(btnClickedId);
+            console.log("user answer " + userAnswer);
+            
+            console.log("correct answer " + correctAnswer[qNum]);
+            if (userAnswer === correctAnswer[qNum]) {
+                userCorrect();
+                console.log("corect answer was chosen");
+                wins++;
+                document.getElementById("score").innerHTML = "Score: " + wins;
+            } else {
+                //userIncorrect();
+                nextQuestion();
+                console.log("inccorect answer was chosen");
+                losses++;
+            }
+            
+
+        });
     }
     gameQuestions();
 }
@@ -171,42 +187,37 @@ function gameQuestions() {
     document.getElementById("btn2").innerHTML = answers[qNum][1];
     document.getElementById("btn3").innerHTML = answers[qNum][2];      
     document.getElementById("btn4").innerHTML = answers[qNum][3];
-
-    $("button").click(function() {
-        var btnClickedId = this.id;
-        var userAnswer = btnIndex.indexOf(btnClickedId);
-        console.log("user answer " + userAnswer);
-        
-        console.log("correct answer " + correctAnswer[qNum]);
-        if (userAnswer === correctAnswer[qNum]) {
-            //userCorrect();
-            console.log("corect answer was chosen");
-            wins++;
-            document.getElementById("score").innerHTML = "Score: " + wins;
-        } else {
-            //userIncorrect();
-            console.log("inccorect answer was chosen");
-            losses++;
-        }
-        
-        if (qNum === questions.length) {
-            $("button").hide();
-            endGame();
-        } else if (qNum < questions.length) {
-            //gameQuestions();
-            nextQuestion();
-        }
-    });
+    clearInterval(timerIterator);
+    countdownTimer();
 }
 
-
-
+function userCorrect(){
+    document.getElementById("answers").style.display = "none";
+    document.getElementById("questions").style.display = "none";
+    clearTimeout(nextQuestionTimer);
+    document.getElementById("wlStatus").innerHTML = "Correct!"
+    setTimeout(() => {
+        document.getElementById("answers").style.display = "block";
+        document.getElementById("questions").style.display = "block";
+        document.getElementById("wlStatus").innerHTML = "";
+        nextQuestion();
+    }, 3000);
+    
+}
+// timers being set but not cleared
+// functions being called multiple times 
 
 function nextQuestion() {
-    // time = 60;
-    qNum++;
-    console.log("next question");
-    gameQuestions();
+    if (qNum === questions.length) {
+        $("button").hide();
+        endGame();
+    } else if (qNum < questions.length) {
+        //gameQuestions();
+        timeLeft = 60;
+        qNum++;
+        console.log("next question");
+        gameQuestions();
+    }
 }
 function endGame() {
     console.log("game end");

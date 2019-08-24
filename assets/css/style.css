@@ -48,3 +48,6 @@ button {
 button:hover {
     font-weight: bold;
 }
+#wlStatus {
+    font-size: 40px;
+}
