@@ -1,44 +1,31 @@
 //trivia question ideas
-    //doctor who
-        //first doctor
-        //what does the tardis look like
     //harry potter
-        //voldemorts real name
         //what certian spells do
-        //name of all the weasles
-        //name of harrys owl
-        //in goblet of fire, who was mad eye moody really
         //first book release date
         //what does the pollyjuice potion do
         //effects of other potions
-        //name of weasleys shop
-        //name of the bank
-        //hagrids first name
     //star trek
-        //how many itterations of star trek are there
         //name of the enterprise
         //enterprise serial number (NCC-1701)
-        //actors names
-        //what itteration was Data in
-        //what itteration was patrick stewart in
-    //location of worlds biggest comic convention
-    //lotr
-    //what does larp stand for
-    //what is cosplay
-    //mario
-    //marvel
-        //when was the first comic published
+        //khans actor
 
 
-//Doctor Who
+//Harry Potter
 
     //Q: 
-    //A:
-    //C:
+    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+    //C: hufflepuff 2
+
+    //Q: 
+    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+    //C: ravenclaw 3
+
+    //Q: 
+    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+    //C: gryffindor 1
 
 
-//set up question themes
-//set up timer
+
 //set up correct answer page
 //set up incorrect answer page
 //answer button click only working on second button click
@@ -54,11 +41,26 @@ var questions = [
     "Which is not a Pokemon type?",
     "What was the name of Link's fairy companion in Link to the Past?",
     "Who is villan in Legend of Zelda?",
-    "In Legend of Zelda, who are the Kokiri?",
-    "In Legend of Zelda, what is the name of Link's iconic weapon?",
+    "Who are the Kokiri?",
+    "What is the name of Link's iconic weapon?",
     "What platform was Legend of Zelda origially released on?",
     "What was the air date of the first episode of Doctor Who?",
-    "In the show, Doctor who, what does does the name TARDIS stand for?",
+    "What does does the name TARDIS stand for?",
+    "Who played the first Doctor in Doctor Who?",
+    "In Harry Potter, what is Gryffindor's house animal?",
+    "Where is the Gryffindor's common room located?",
+    "What is Ravenclaw's house animal?",
+    "Where is the Ravenclaws's common room located?",
+    "What is Hufflepuff's house animal?",
+    "Where is the Hufflepuff's common room located?",
+    "What is Slytherins's house animal?",
+    "Where is the Slytherin's common room located?",
+    "Which house does The Bloody Barron belong to?",
+    "Which house does The Fat Frier belong to?",
+    "Which house does The Grey Lady belong to?",
+    "Which house does Nearly Headless Nick belong to?",
+    "",
+    "",
     "",
 
 ]
@@ -72,9 +74,24 @@ var answers = [
     ["GameCube", "Nintendo 64", "NES", "Super Nintendo"],
     ["November 22nd, 1963", "November 23rd, 1963" , "November 24th, 1963" , "July 18th, 2005"],
     ["Tornado Advanced Radar Display Information System", "Time And Relative Dimension In Space", "Tethered Arial Release Developed In Style", "Theraputic Aeromatic Dispersal In Sessions"],
+    ["Christopher Eccleston", "Tom Baker", "David Tennant", "William Hartnell"],
+    ["Lion", "Eagle", "Serpent", "Badger"],
+    ["In the dungeons", "In the basement near the kitches", "In a tower on the west side of the castle", "In a tower on the east side of the castle"],
+    ["Lion", "Eagle", "Serpent", "Badger"],
+    ["In the dungeons", "In the basement near the kitches", "In a tower on the west side of the castle", "In a tower on the east side of the castle"],
+    ["Lion", "Eagle", "Serpent", "Badger"],
+    ["In the dungeons", "In the basement near the kitches", "In a tower on the west side of the castle", "In a tower on the east side of the castle"],
+    ["Lion", "Eagle", "Serpent", "Badger"],
+    ["In the dungeons", "In the basement near the kitches", "In a tower on the west side of the castle", "In a tower on the east side of the castle"],
+    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
+    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
+    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
+    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
+    ,
+    ,
 
 ]
-var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1];
+var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1, 3, 0, 3, 1, 2, 3, 2, 2, 0, 3, 1, 2, 0, ];
 var btnMade = false;
 
 var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
@@ -82,41 +99,54 @@ var qNum = 0;
 var wins = 0;
 var losses = 0;
 
+//set 60 second countdown timer
+    //when time is up, goes to next question
+        //goes to next question correctly
+// var time = 60;
+// function timerStart() {
+
+//     var int = 1000;
+//     document.getElementById("qTimer").innerHTML = "Time left: " + time;
+//     time--;
+//     setInterval(function go(){ 
+//         document.getElementById("qTimer").innerHTML = "Time left: " + time;
+//         time--;
+//         if (time === -1) {
+//             qNum++;
+//             losses++;
+//             nextQuestion();
+//         }
+//     }, int);
+// }
+
+//change to jquery?
+//$("#startBtn").click(function)
 document.onclick = function gameStart() {
     document.getElementById("startBtn").style.display = "none";
-    
-//set 60 second countdown timer
-    //when time is up nextQuestion() then repeat
+    document.getElementById("score").innerHTML = "Score: " + wins;
 
-    console.log("qnum " + qNum);
+    //starts timer on game start
+ //   timerStart();
 
-    
-    $("button").click(function() {
-        var btnClickedId = this.id;
-        var userAnswer = btnIndex.indexOf(btnClickedId);
-        console.log(userAnswer);
-        
-        console.log(correctAnswer[qNum]);
-        if (userAnswer === correctAnswer[qNum]) {
-            console.log("corect answer was chosen");
-            wins++;
-            qNum++;
-            console.log(wins);
-            document.getElementById("score").innerHTML = "Score: " + wins;
-        } else {
-            console.log("inccorect answer was chosen");
-            losses++;
-            qNum++;
-        }
-        
-        if (qNum === questions.length) {
-            $("button").hide()
-            endGame();
-        } else if (qNum < questions.length) {
-            //gameQuestions();
-            nextQuestion();
-        }
-    });
+    // function userCorrect() {
+    //     //setTimeout() to display a next question after win page
+    //         //document.getElementById("content").innerHTML
+    //     console.log("corect answer was chosen");
+    //     wins++;
+    //     qNum++;
+    //     console.log(wins);
+    //     document.getElementById("score").innerHTML = "Score: " + wins;
+    // }
+
+    // function userIncorrect() {
+    //     //setTimeout() to display a next question afer lose page
+    //         //document.getElementById("content").innerHTML
+    //     console.log("inccorect answer was chosen");
+    //     losses++;
+    //     qNum++;
+    // }
+
+
     if (!btnMade) {
         var button1 = document.createElement("button");
         button1.setAttribute("id","btn1");
@@ -136,23 +166,48 @@ document.onclick = function gameStart() {
 }
 
 function gameQuestions() {
+    document.getElementById("questions").innerHTML = questions[qNum];
+    document.getElementById("btn1").innerHTML = answers[qNum][0];
+    document.getElementById("btn2").innerHTML = answers[qNum][1];
+    document.getElementById("btn3").innerHTML = answers[qNum][2];      
+    document.getElementById("btn4").innerHTML = answers[qNum][3];
 
-    if (qNum < questions.length) {
-        document.getElementById("questions").innerHTML = questions[qNum];
-        document.getElementById("btn1").innerHTML = answers[qNum][0];
-        document.getElementById("btn2").innerHTML = answers[qNum][1];
-        document.getElementById("btn3").innerHTML = answers[qNum][2];      
-        document.getElementById("btn4").innerHTML = answers[qNum][3];
-    }
+    $("button").click(function() {
+        var btnClickedId = this.id;
+        var userAnswer = btnIndex.indexOf(btnClickedId);
+        console.log("user answer " + userAnswer);
+        
+        console.log("correct answer " + correctAnswer[qNum]);
+        if (userAnswer === correctAnswer[qNum]) {
+            //userCorrect();
+            console.log("corect answer was chosen");
+            wins++;
+            document.getElementById("score").innerHTML = "Score: " + wins;
+        } else {
+            //userIncorrect();
+            console.log("inccorect answer was chosen");
+            losses++;
+        }
+        
+        if (qNum === questions.length) {
+            $("button").hide();
+            endGame();
+        } else if (qNum < questions.length) {
+            //gameQuestions();
+            nextQuestion();
+        }
+    });
 }
 
 
 
 
 function nextQuestion() {
+    // time = 60;
+    qNum++;
+    console.log("next question");
     gameQuestions();
 }
 function endGame() {
     console.log("game end");
-    clearInterval();
 }
