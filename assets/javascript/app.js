@@ -1,41 +1,3 @@
-//trivia question ideas
-    //harry potter
-        //what certian spells do
-        //first book release date
-        //what does the pollyjuice potion do
-        //effects of other potions
-    //star trek
-        //name of the enterprise
-        //enterprise serial number (NCC-1701)
-        //khans actor
-
-
-//Harry Potter
-
-    //Q: 
-    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
-    //C: hufflepuff 2
-
-    //Q: 
-    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
-    //C: ravenclaw 3
-
-    //Q: 
-    //A: ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
-    //C: gryffindor 1
-
-
-
-//set up correct answer page
-//set up incorrect answer page
-//answer button click only working on second button click
-    //or after changing button to #answers on line 106
-    //correct answer is givien a value of -1
-//after selecting correct answer for 2nd question
-    //also returns response for 3rd question then moves
-    //to 4th question
-    //responce for the 4th question skips to 7th
-
 var questions = [
     "Which is not a region in pokemon?",
     "Which is not a Pokemon type?",
@@ -58,11 +20,7 @@ var questions = [
     "Which house does The Bloody Barron belong to?",
     "Which house does The Fat Frier belong to?",
     "Which house does The Grey Lady belong to?",
-    "Which house does Nearly Headless Nick belong to?",
-    "",
-    "",
-    "",
-
+    "Which house does Nearly Headless Nick belong to?"
 ]
 var answers = [
     ["Shinnoh", "Kanto", "Unova", "Jinto"],
@@ -86,57 +44,17 @@ var answers = [
     ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
     ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
     ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
-    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
-    ,
-    ,
-
+    ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
 ]
-var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1, 3, 0, 3, 1, 2, 3, 2, 2, 0, 3, 1, 2, 0, ];
+var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1, 3, 0, 3, 1, 2, 3, 2, 2, 0, 3, 1, 2, 0];
 var btnMade = false;
-
 var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
 var qNum = 0;
 var wins = 0;
 var losses = 0;
-
-//set 60 second countdown timer
-    //when time is up, goes to next question
-        //goes to next question correctly
-// var time = 60;
-// function timerStart() {
-
-//     var int = 1000;
-//     document.getElementById("qTimer").innerHTML = "Time left: " + time;
-//     time--;
-//     setInterval(function go(){ 
-//         document.getElementById("qTimer").innerHTML = "Time left: " + time;
-//         time--;
-//         if (time === -1) {
-//             qNum++;
-//             losses++;
-//             nextQuestion();
-//         }
-//     }, int);
-// }
 var timeLeft = 60;
 var nextQuestionTimer;
 var timerIterator;
-
-function countdownTimer() {
-    document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
-    nextQuestionTimer = setTimeout(function() {
-        losses++;
-        console.log("60 sec timer");
-        nextQuestion();
-    }, 60000);
-    timeLeft = 60;
-    timerIterator = setInterval(function() {
-        timeLeft -= 1;
-        console.log("1 sec timer");
-        document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
-    }, 1000);
-    console.log()
-}
 
 
 document.onclick = function gameStart() {
@@ -161,24 +79,40 @@ document.onclick = function gameStart() {
             var btnClickedId = this.id;
             var userAnswer = btnIndex.indexOf(btnClickedId);
             console.log("user answer " + userAnswer);
-            
             console.log("correct answer " + correctAnswer[qNum]);
             if (userAnswer === correctAnswer[qNum]) {
-                userCorrect();
                 console.log("corect answer was chosen");
                 wins++;
                 document.getElementById("score").innerHTML = "Score: " + wins;
+                userCorrect();
+                clearInterval(nextQuestionTimer);
+                clearTimeout(timerIterator);
             } else {
-                //userIncorrect();
-                nextQuestion();
                 console.log("inccorect answer was chosen");
                 losses++;
+                userIncorrect();
+                clearInterval(nextQuestionTimer);
+                clearTimeout(timerIterator);
             }
-            
-
         });
     }
     gameQuestions();
+}
+
+function countdownTimer() {
+    document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
+    nextQuestionTimer = setTimeout(function() {
+        losses++;
+        console.log("60 sec timer");
+        nextQuestion();
+    }, 60000);
+    timeLeft = 60;
+    timerIterator = setInterval(function() {
+        timeLeft -= 1;
+        console.log("1 sec timer");
+        document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
+    }, 1000);
+    console.log()
 }
 
 function gameQuestions() {
@@ -187,22 +121,38 @@ function gameQuestions() {
     document.getElementById("btn2").innerHTML = answers[qNum][1];
     document.getElementById("btn3").innerHTML = answers[qNum][2];      
     document.getElementById("btn4").innerHTML = answers[qNum][3];
-    clearInterval(timerIterator);
     countdownTimer();
 }
 
 function userCorrect(){
     document.getElementById("answers").style.display = "none";
     document.getElementById("questions").style.display = "none";
-    clearTimeout(nextQuestionTimer);
-    document.getElementById("wlStatus").innerHTML = "Correct!"
+    document.getElementById("wlStatus").innerHTML = "Correct!";
+    document.getElementById("qTimer").style.display = "none"
     setTimeout(() => {
         document.getElementById("answers").style.display = "block";
         document.getElementById("questions").style.display = "block";
         document.getElementById("wlStatus").innerHTML = "";
+        document.getElementById("qTimer").style.display = "block";
         nextQuestion();
     }, 3000);
-    
+}
+
+function userIncorrect() {
+    document.getElementById("answers").style.display = "none";
+    document.getElementById("questions").style.display = "none";
+    document.getElementById("wlStatus").innerHTML = "Incorrect!";
+    var trueAnswer = correctAnswer[qNum];
+    document.getElementById("trueAnswer").innerHTML = "The correct answer was " + answers[qNum][trueAnswer];
+    document.getElementById("qTimer").style.display = "none"
+    setTimeout(() => {
+        document.getElementById("answers").style.display = "block";
+        document.getElementById("questions").style.display = "block";
+        document.getElementById("wlStatus").innerHTML = "";
+        document.getElementById("trueAnswer").innerHTML = "";
+        document.getElementById("qTimer").style.display = "block";
+        nextQuestion();
+    }, 3000);
 }
 // timers being set but not cleared
 // functions being called multiple times 
@@ -212,7 +162,8 @@ function nextQuestion() {
         $("button").hide();
         endGame();
     } else if (qNum < questions.length) {
-        //gameQuestions();
+        clearInterval(timerIterator);
+        clearTimeout(nextQuestionTimer);
         timeLeft = 60;
         qNum++;
         console.log("next question");
@@ -220,5 +171,10 @@ function nextQuestion() {
     }
 }
 function endGame() {
-    console.log("game end");
+    document.getElementById("qTimer").style.display = "none"
+    document.getElementById("answers").style.display = "none";
+    document.getElementById("questions").style.display = "none";
+    document.getElementById("score").innerHTML = "# of correct answers: " + wins + "<br> # of incorrect answers: " + losses;
+    document.getElementById("startBtn").style.display = "block";
+    document.getElementById("startBtn").innerHTML = "Play again?"
 }
