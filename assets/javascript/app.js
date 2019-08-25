@@ -46,7 +46,7 @@ var answers = [
     ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"],
     ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
 ]
-var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1, 3, 0, 3, 1, 2, 3, 2, 2, 0, 3, 1, 2, 0];
+var correctAnswer = [3, 1, 0, 2, 0, 3, 2, 1, 1, 3, 0, 3, 1, 2, 3, 1, 1, 0, 3, 1, 2, 0];
 var btnMade = false;
 var btnIndex = ["btn1", "btn2", "btn3", "btn4"]
 var qNum = 0;
@@ -103,16 +103,13 @@ function countdownTimer() {
     document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
     nextQuestionTimer = setTimeout(function() {
         losses++;
-        console.log("60 sec timer");
         nextQuestion();
     }, 60000);
     timeLeft = 60;
     timerIterator = setInterval(function() {
         timeLeft -= 1;
-        console.log("1 sec timer");
         document.getElementById("qTimer").innerHTML = "Time left: " + timeLeft;
     }, 1000);
-    console.log()
 }
 
 function gameQuestions() {
@@ -122,6 +119,7 @@ function gameQuestions() {
     document.getElementById("btn3").innerHTML = answers[qNum][2];      
     document.getElementById("btn4").innerHTML = answers[qNum][3];
     countdownTimer();
+    console.log(qNum);
 }
 
 function userCorrect(){
@@ -135,7 +133,7 @@ function userCorrect(){
         document.getElementById("wlStatus").innerHTML = "";
         document.getElementById("qTimer").style.display = "block";
         nextQuestion();
-    }, 4000);
+    }, 3000);
 }
 
 function userIncorrect() {
@@ -158,7 +156,7 @@ function userIncorrect() {
 // functions being called multiple times 
 
 function nextQuestion() {
-    if (qNum === questions.length) {
+    if (qNum === 21) {
         $("button").hide();
         endGame();
     } else if (qNum < questions.length) {
