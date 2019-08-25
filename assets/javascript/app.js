@@ -57,7 +57,7 @@ var nextQuestionTimer;
 var timerIterator;
 
 
-document.onclick = function gameStart() {
+function gameStart() {
     document.getElementById("startBtn").style.display = "none";
     document.getElementById("score").innerHTML = "Score: " + wins;
 
@@ -135,7 +135,7 @@ function userCorrect(){
         document.getElementById("wlStatus").innerHTML = "";
         document.getElementById("qTimer").style.display = "block";
         nextQuestion();
-    }, 3000);
+    }, 4000);
 }
 
 function userIncorrect() {
@@ -152,7 +152,7 @@ function userIncorrect() {
         document.getElementById("trueAnswer").innerHTML = "";
         document.getElementById("qTimer").style.display = "block";
         nextQuestion();
-    }, 3000);
+    }, 4000);
 }
 // timers being set but not cleared
 // functions being called multiple times 
