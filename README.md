@@ -3,3 +3,6 @@ This project is a nerd themed trivia game containing a countdown timer for each 
 
 ### Built with
 This project was built mainly using Javascript with some jQuery elements.
+
+### Deployed Link
+https://darshishka.github.io/TriviaGame/
